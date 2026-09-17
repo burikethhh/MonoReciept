@@ -33,11 +33,11 @@ src/services/ImagePipeline.ts    # grayscale -> adjust -> serpentine Floyd-Stein
 src/services/PrinterService.ts   # MXW01 BLE: scan/connect/writeControl/print (see §4)
 src/components/StatusBar.tsx     # BLE pill + battery (wire to notify char in M4)
 src/components/PrintSheet.tsx    # copies + density + print loop with progress
-src/screens/HomeScreen.tsx       # frame picker (stub)
-src/screens/CaptureScreen.tsx    # VisionCamera TODO (M2)
-src/screens/PreviewScreen.tsx    # dither preview + sliders TODO (M3)
-src/screens/SettingsScreen.tsx   # PIN settings TODO (M5)
-src/assets/frames/               # 384px-wide PNG overlays (e.g. 384x600)
+src/screens/HomeScreen.tsx       # frame picker + booth launcher + settings gear
+src/screens/CaptureScreen.tsx    # VisionCamera capture + frame ghost + 3-2-1 countdown + flash (M2)
+src/screens/PreviewScreen.tsx    # dither preview + sliders + frame switcher + print sheet (M3)
+src/screens/SettingsScreen.tsx   # PIN-gated operator settings + diagnostic print + kiosk lock (M5)
+src/assets/frames/               # 384px-wide PNG overlays & FrameTemplates (e.g. 384x576)
 android/app/src/main/AndroidManifest.xml  # CAMERA + BLUETOOTH_SCAN/CONNECT + FINE_LOCATION + LE feature
 ```
 
