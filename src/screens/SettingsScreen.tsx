@@ -344,7 +344,7 @@ export function SettingsScreen() {
           </View>
           <View style={styles.specRow}>
             <Text style={styles.specLabel}>MonoReciept Build</Text>
-            <Text style={styles.specValue}>v0.1.0 (Bare RN 0.76.5)</Text>
+            <Text style={styles.specValue}>v1.1.0 (Bare RN 0.76.5)</Text>
           </View>
         </View>
       </ScrollView>
