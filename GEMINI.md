@@ -61,7 +61,7 @@ android/app/src/main/AndroidManifest.xml  # CAMERA + BLUETOOTH_SCAN/CONNECT + FI
 - [x] M3 preview: `processForPrint()` live dither + brightness/contrast sliders + frame switcher
 - [x] M4 BLE: scan/connect MXW01, V5X handshake, battery notify, auto-reconnect last MAC
 - [x] M5 print+settings: chunked print + progress, copies/density, PIN-gated settings, immersive kiosk lock
-- [ ] Push scaffold to `MonoReciept` remote
+- [x] Push scaffold to `MonoReciept` remote
 
 ## 7. Definition of done per task
 1. `npx tsc --noEmit` passes with no new errors
