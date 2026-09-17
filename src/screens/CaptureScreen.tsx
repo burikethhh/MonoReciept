@@ -11,6 +11,7 @@ import { Camera, useCameraDevice, useCameraPermission } from 'react-native-visio
 import { useBoothStore } from '../store/useBoothStore';
 import { FrameGhost } from '../components/FrameGhost';
 import { getFrameTemplate } from '../assets/frames/frameTemplates';
+import { Colors, Typography, Radii } from '../theme/theme';
 
 export function CaptureScreen() {
   const { phase, frameId, cameraPosition, set } = useBoothStore();
@@ -131,15 +132,16 @@ export function CaptureScreen() {
     return (
       <View style={styles.centerContainer}>
         <View style={styles.permissionCard}>
-          <Text style={styles.cardTitle}>Camera Access</Text>
+          <Text style={styles.cardTitle}>Camera Authorization</Text>
+          <View style={styles.goldDivider} />
           <Text style={styles.cardSubtitle}>
-            MonoReciept requires camera permission to capture your photobooth memory.
+            MonoReceipt requires camera access to capture high-definition portrait prints.
           </Text>
           <Pressable style={styles.primaryButton} onPress={requestPermission}>
-            <Text style={styles.primaryButtonText}>Grant Access</Text>
+            <Text style={styles.primaryButtonText}>GRANT ACCESS</Text>
           </Pressable>
           <Pressable style={styles.secondaryButton} onPress={handleBack}>
-            <Text style={styles.secondaryButtonText}>Back to Home</Text>
+            <Text style={styles.secondaryButtonText}>RETURN TO GALLERY</Text>
           </Pressable>
         </View>
       </View>
@@ -151,15 +153,16 @@ export function CaptureScreen() {
     return (
       <View style={styles.centerContainer}>
         <View style={styles.permissionCard}>
-          <Text style={styles.cardTitle}>No Camera Found</Text>
+          <Text style={styles.cardTitle}>No Camera Detected</Text>
+          <View style={styles.goldDivider} />
           <Text style={styles.cardSubtitle}>
-            No camera device detected for position &quot;{cameraPosition}&quot;.
+            No active optical sensor found for &quot;{cameraPosition}&quot; orientation.
           </Text>
           <Pressable style={styles.primaryButton} onPress={toggleCamera}>
-            <Text style={styles.primaryButtonText}>Switch Camera</Text>
+            <Text style={styles.primaryButtonText}>TOGGLE SENSOR</Text>
           </Pressable>
           <Pressable style={styles.secondaryButton} onPress={handleBack}>
-            <Text style={styles.secondaryButtonText}>Back to Home</Text>
+            <Text style={styles.secondaryButtonText}>RETURN TO GALLERY</Text>
           </Pressable>
         </View>
       </View>
@@ -183,7 +186,7 @@ export function CaptureScreen() {
       {/* Top Header Bar */}
       <View style={styles.topBar}>
         <Pressable style={styles.glassButton} onPress={handleBack}>
-          <Text style={styles.glassButtonText}>BACK</Text>
+          <Text style={styles.glassButtonText}>← BACK</Text>
         </Pressable>
 
         <View style={styles.framePill}>
@@ -192,7 +195,7 @@ export function CaptureScreen() {
 
         <Pressable style={styles.glassButton} onPress={toggleCamera}>
           <Text style={styles.glassButtonText}>
-            {cameraPosition === 'front' ? 'FRONT' : 'BACK'}
+            {cameraPosition === 'front' ? 'FRONT SENSOR' : 'REAR SENSOR'}
           </Text>
         </Pressable>
       </View>
@@ -236,7 +239,7 @@ export function CaptureScreen() {
           </View>
         ) : (
           <View style={styles.countingControls}>
-            <Text style={styles.countingLabel}>GET READY...</Text>
+            <Text style={styles.countingLabel}>PREPARE YOUR POSE...</Text>
             <Pressable
               style={styles.cancelCountdownButton}
               onPress={handleCancelCountdown}
@@ -248,8 +251,8 @@ export function CaptureScreen() {
 
         {isCapturing && (
           <View style={styles.loadingBackdrop}>
-            <ActivityIndicator size="large" color="#FFFFFF" />
-            <Text style={styles.loadingText}>Processing Shot...</Text>
+            <ActivityIndicator size="large" color={Colors.gold} />
+            <Text style={styles.loadingText}>DEVELOPING PORTRAIT...</Text>
           </View>
         )}
       </View>
@@ -264,95 +267,107 @@ const styles = StyleSheet.create({
   },
   centerContainer: {
     flex: 1,
-    backgroundColor: '#1E1E24',
+    backgroundColor: Colors.bgDark,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 24,
   },
   permissionCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 28,
+    backgroundColor: Colors.surface,
+    borderRadius: Radii.lg,
+    padding: 32,
     width: '100%',
-    maxWidth: 400,
+    maxWidth: 420,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
   cardTitle: {
     fontSize: 22,
-    fontWeight: '800',
-    color: '#1E1E24',
-    marginBottom: 10,
+    fontFamily: Typography.serif,
+    fontWeight: '700',
+    color: Colors.inkPrimary,
     letterSpacing: 0.5,
   },
+  goldDivider: {
+    width: 36,
+    height: 1.5,
+    backgroundColor: Colors.gold,
+    marginVertical: 12,
+  },
   cardSubtitle: {
-    fontSize: 14,
-    color: '#555555',
+    fontSize: 13,
+    color: Colors.inkSecondary,
     textAlign: 'center',
     lineHeight: 20,
     marginBottom: 24,
+    fontFamily: Typography.sans,
   },
   primaryButton: {
-    backgroundColor: '#1E1E24',
+    backgroundColor: Colors.inkPrimary,
     paddingVertical: 14,
     paddingHorizontal: 28,
-    borderRadius: 12,
+    borderRadius: Radii.pill,
     width: '100%',
     alignItems: 'center',
     marginBottom: 10,
   },
   primaryButtonText: {
-    color: '#FFFFFF',
-    fontWeight: '700',
-    fontSize: 15,
-    letterSpacing: 1,
+    color: Colors.surface,
+    fontSize: 11,
+    fontFamily: Typography.sansMedium,
+    letterSpacing: Typography.trackingWide,
   },
   secondaryButton: {
     paddingVertical: 12,
     paddingHorizontal: 28,
-    borderRadius: 12,
+    borderRadius: Radii.pill,
     width: '100%',
     alignItems: 'center',
   },
   secondaryButtonText: {
-    color: '#666666',
-    fontWeight: '600',
-    fontSize: 14,
+    color: Colors.inkSecondary,
+    fontSize: 11,
+    fontFamily: Typography.sansMedium,
+    letterSpacing: Typography.trackingWide,
   },
   topBar: {
     position: 'absolute',
-    top: 20,
-    left: 20,
-    right: 20,
+    top: 24,
+    left: 24,
+    right: 24,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     zIndex: 10,
   },
   glassButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.55)',
-    paddingVertical: 10,
+    backgroundColor: 'rgba(18, 18, 18, 0.65)',
+    paddingVertical: 9,
     paddingHorizontal: 16,
-    borderRadius: 20,
+    borderRadius: Radii.pill,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.25)',
+    borderColor: 'rgba(197, 168, 128, 0.4)', // subtle gold border
   },
   glassButtonText: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 1,
+    color: Colors.surface,
+    fontSize: 10,
+    fontFamily: Typography.sansMedium,
+    letterSpacing: Typography.trackingWide,
   },
   framePill: {
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    backgroundColor: Colors.surface,
     paddingVertical: 8,
     paddingHorizontal: 18,
-    borderRadius: 16,
+    borderRadius: Radii.pill,
+    borderWidth: 1,
+    borderColor: Colors.goldBorder,
   },
   framePillText: {
-    color: '#1E1E24',
-    fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 1.2,
+    color: Colors.inkPrimary,
+    fontSize: 10,
+    fontFamily: Typography.sansMedium,
+    letterSpacing: Typography.trackingExtraWide,
   },
   countdownContainer: {
     ...StyleSheet.absoluteFillObject,
@@ -364,16 +379,17 @@ const styles = StyleSheet.create({
     width: 140,
     height: 140,
     borderRadius: 70,
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
-    borderWidth: 4,
-    borderColor: '#FFFFFF',
+    backgroundColor: 'rgba(18, 18, 18, 0.8)',
+    borderWidth: 3,
+    borderColor: Colors.gold,
     alignItems: 'center',
     justifyContent: 'center',
   },
   countdownNumber: {
-    color: '#FFFFFF',
+    color: Colors.surface,
     fontSize: 72,
-    fontWeight: '900',
+    fontFamily: Typography.serif,
+    fontWeight: '700',
   },
   flashOverlay: {
     ...StyleSheet.absoluteFillObject,
@@ -382,7 +398,7 @@ const styles = StyleSheet.create({
   },
   bottomBar: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 34,
     left: 0,
     right: 0,
     alignItems: 'center',
@@ -397,69 +413,69 @@ const styles = StyleSheet.create({
     width: 88,
     height: 88,
     borderRadius: 44,
-    borderWidth: 4,
-    borderColor: '#FFFFFF',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderWidth: 3,
+    borderColor: Colors.gold,
+    backgroundColor: 'rgba(197, 168, 128, 0.2)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   shutterOuterRingPressed: {
     transform: [{ scale: 0.95 }],
-    backgroundColor: 'rgba(255, 255, 255, 0.35)',
+    backgroundColor: 'rgba(197, 168, 128, 0.4)',
   },
   shutterInnerCircle: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: '#FFFFFF',
+    width: 68,
+    height: 68,
+    borderRadius: 34,
+    backgroundColor: Colors.surface,
     alignItems: 'center',
     justifyContent: 'center',
   },
   shutterLabel: {
-    color: '#1E1E24',
-    fontSize: 11,
-    fontWeight: '900',
-    letterSpacing: 1,
+    color: Colors.inkPrimary,
+    fontSize: 10,
+    fontFamily: Typography.sansMedium,
+    letterSpacing: Typography.trackingWide,
   },
   countingControls: {
     alignItems: 'center',
     gap: 12,
   },
   countingLabel: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '800',
-    letterSpacing: 2,
+    color: Colors.surface,
+    fontSize: 14,
+    fontFamily: Typography.sansMedium,
+    letterSpacing: Typography.trackingWide,
     textShadowColor: 'rgba(0, 0, 0, 0.8)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 4,
   },
   cancelCountdownButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    backgroundColor: 'rgba(18, 18, 18, 0.65)',
     borderWidth: 1,
-    borderColor: '#FFFFFF',
-    paddingVertical: 10,
-    paddingHorizontal: 24,
-    borderRadius: 20,
+    borderColor: Colors.goldBorder,
+    paddingVertical: 9,
+    paddingHorizontal: 22,
+    borderRadius: Radii.pill,
   },
   cancelCountdownText: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 1.2,
+    color: Colors.surface,
+    fontSize: 10,
+    fontFamily: Typography.sansMedium,
+    letterSpacing: Typography.trackingWide,
   },
   loadingBackdrop: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(18, 18, 18, 0.85)',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 12,
     zIndex: 40,
   },
   loadingText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '700',
-    letterSpacing: 1,
+    color: Colors.goldLight,
+    fontSize: 11,
+    fontFamily: Typography.sansMedium,
+    letterSpacing: Typography.trackingWide,
   },
 });

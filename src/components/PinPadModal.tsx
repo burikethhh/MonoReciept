@@ -8,6 +8,7 @@ import {
   Animated,
 } from 'react-native';
 import { StorageService } from '../services/StorageService';
+import { Colors, Typography, Radii, Shadows } from '../theme/theme';
 
 interface PinPadModalProps {
   visible: boolean;
@@ -147,39 +148,38 @@ export function PinPadModal({ visible, onSuccess, onClose }: PinPadModalProps) {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: Colors.overlayDark,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 24,
   },
   card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 24,
+    backgroundColor: Colors.surface,
+    borderRadius: Radii.xl,
     padding: 28,
     width: '100%',
     maxWidth: 340,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.15,
-    shadowRadius: 16,
-    elevation: 8,
+    borderWidth: 1,
+    borderColor: Colors.goldBorder,
+    ...Shadows.cardFloating,
   },
   badge: {
     fontSize: 10,
     fontWeight: '800',
-    color: '#E06D53',
-    letterSpacing: 1.5,
+    color: Colors.goldDark,
+    letterSpacing: Typography.trackingWide,
     marginBottom: 4,
   },
   title: {
+    fontFamily: Typography.serif,
     fontSize: 22,
-    fontWeight: '900',
-    color: '#1E1E24',
+    fontWeight: '700',
+    color: Colors.inkPrimary,
   },
   subtitle: {
     fontSize: 12,
-    color: '#777780',
+    color: Colors.inkSecondary,
     marginTop: 2,
     marginBottom: 20,
   },
@@ -192,27 +192,27 @@ const styles = StyleSheet.create({
     width: 14,
     height: 14,
     borderRadius: 7,
-    borderWidth: 2,
-    borderColor: '#CCCCCC',
+    borderWidth: 1.5,
+    borderColor: Colors.border,
     backgroundColor: 'transparent',
   },
   dotFilled: {
-    borderColor: '#1E1E24',
-    backgroundColor: '#1E1E24',
+    borderColor: Colors.inkPrimary,
+    backgroundColor: Colors.inkPrimary,
   },
   dotError: {
-    borderColor: '#DC2626',
-    backgroundColor: '#DC2626',
+    borderColor: Colors.statusDisconnected,
+    backgroundColor: Colors.statusDisconnected,
   },
   errorText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#DC2626',
+    color: Colors.statusDisconnected,
     marginBottom: 16,
   },
   hintText: {
     fontSize: 11,
-    color: '#999990',
+    color: Colors.inkLight,
     marginBottom: 16,
   },
   keypad: {
@@ -225,27 +225,31 @@ const styles = StyleSheet.create({
   key: {
     width: '30%',
     aspectRatio: 1.2,
-    borderRadius: 16,
-    backgroundColor: '#F5F5F2',
+    borderRadius: Radii.lg,
+    backgroundColor: Colors.surfaceWarm,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
     alignItems: 'center',
     justifyContent: 'center',
   },
   actionKey: {
     backgroundColor: 'transparent',
+    borderWidth: 0,
   },
   keyPressed: {
-    backgroundColor: '#E0E0DC',
+    backgroundColor: Colors.goldLight,
+    borderColor: Colors.goldBorder,
     transform: [{ scale: 0.96 }],
   },
   keyText: {
     fontSize: 22,
-    fontWeight: '800',
-    color: '#1E1E24',
+    fontWeight: '700',
+    color: Colors.inkPrimary,
   },
   actionKeyText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#777780',
-    letterSpacing: 0.8,
+    color: Colors.inkSecondary,
+    letterSpacing: Typography.trackingNormal,
   },
 });

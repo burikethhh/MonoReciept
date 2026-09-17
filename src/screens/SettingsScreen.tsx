@@ -13,6 +13,7 @@ import {
 import { useBoothStore } from '../store/useBoothStore';
 import { StorageService } from '../services/StorageService';
 import { printerService } from '../services/PrinterService';
+import { Colors, Typography, Radii, Shadows } from '../theme/theme';
 
 export function SettingsScreen() {
   const {
@@ -127,7 +128,7 @@ export function SettingsScreen() {
               <View
                 style={[
                   styles.statusDot,
-                  { backgroundColor: printerConnected ? '#22C55E' : '#F59E0B' },
+                  { backgroundColor: printerConnected ? Colors.statusConnected : Colors.statusScanning },
                 ]}
               />
               <Text style={styles.statusText}>
@@ -258,8 +259,8 @@ export function SettingsScreen() {
             <Switch
               value={keepAwakeEnabled}
               onValueChange={handleToggleKeepAwake}
-              trackColor={{ false: '#CCCCCC', true: '#E06D53' }}
-              thumbColor="#FFFFFF"
+              trackColor={{ false: Colors.border, true: Colors.gold }}
+              thumbColor={Colors.surface}
             />
           </View>
 
@@ -275,8 +276,8 @@ export function SettingsScreen() {
             <Switch
               value={immersiveEnabled}
               onValueChange={handleToggleImmersive}
-              trackColor={{ false: '#CCCCCC', true: '#E06D53' }}
-              thumbColor="#FFFFFF"
+              trackColor={{ false: Colors.border, true: Colors.gold }}
+              thumbColor={Colors.surface}
             />
           </View>
 
@@ -354,11 +355,11 @@ export function SettingsScreen() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#FFF7F0',
+    backgroundColor: Colors.bgKiosk,
   },
   scrollContent: {
-    padding: 24,
-    paddingBottom: 48,
+    padding: 28,
+    paddingBottom: 56,
     alignItems: 'center',
   },
   headerRow: {
@@ -370,68 +371,67 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   headerBadge: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '800',
-    color: '#E06D53',
-    letterSpacing: 2,
+    color: Colors.goldDark,
+    letterSpacing: Typography.trackingWide,
     marginBottom: 4,
   },
   headerTitle: {
+    fontFamily: Typography.serif,
     fontSize: 28,
-    fontWeight: '900',
-    color: '#1E1E24',
+    fontWeight: '700',
+    color: Colors.inkPrimary,
     letterSpacing: -0.5,
   },
   exitButton: {
-    backgroundColor: '#1E1E24',
+    backgroundColor: Colors.inkPrimary,
     paddingVertical: 12,
-    paddingHorizontal: 18,
-    borderRadius: 12,
+    paddingHorizontal: 20,
+    borderRadius: Radii.pill,
+    borderWidth: 1,
+    borderColor: Colors.goldBorder,
   },
   exitButtonText: {
-    color: '#FFFFFF',
+    color: Colors.surface,
     fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1,
+    letterSpacing: Typography.trackingWide,
   },
   sectionCard: {
     width: '100%',
     maxWidth: 640,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 22,
-    borderWidth: 1.5,
-    borderColor: 'rgba(0,0,0,0.06)',
+    backgroundColor: Colors.surface,
+    borderRadius: Radii.lg,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: Colors.border,
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+    ...Shadows.card,
   },
   sectionTitle: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#777780',
-    letterSpacing: 1.2,
+    color: Colors.inkSecondary,
+    letterSpacing: Typography.trackingWide,
     marginBottom: 16,
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#F0F0EC',
+    borderBottomColor: Colors.borderLight,
   },
   infoLabel: {
     fontSize: 13,
-    color: '#555560',
-    fontWeight: '600',
+    color: Colors.inkSecondary,
+    fontWeight: '500',
   },
   infoValue: {
     fontSize: 13,
-    color: '#1E1E24',
+    color: Colors.inkPrimary,
     fontWeight: '700',
   },
   statusBadge: {
@@ -439,23 +439,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   statusDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
     marginRight: 8,
   },
   statusText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#1E1E24',
+    color: Colors.inkPrimary,
   },
   controlGroup: {
-    marginTop: 16,
+    marginTop: 18,
   },
   controlLabel: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#1E1E24',
+    color: Colors.inkPrimary,
     marginBottom: 8,
   },
   subHeaderRow: {
@@ -467,13 +467,15 @@ const styles = StyleSheet.create({
   linkText: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#E06D53',
-    letterSpacing: 0.8,
+    color: Colors.goldDark,
+    letterSpacing: Typography.trackingNormal,
   },
   segmentedRow: {
     flexDirection: 'row',
-    backgroundColor: '#EAEAE6',
-    borderRadius: 12,
+    backgroundColor: Colors.surfaceWarm,
+    borderRadius: Radii.md,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
     padding: 4,
     gap: 4,
   },
@@ -481,20 +483,21 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 10,
     alignItems: 'center',
-    borderRadius: 8,
+    borderRadius: Radii.sm,
   },
   segmentTabSelected: {
-    backgroundColor: '#FFFFFF',
-    elevation: 2,
+    backgroundColor: Colors.inkPrimary,
+    borderWidth: 1,
+    borderColor: Colors.goldBorder,
   },
   segmentTabText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#77777E',
-    letterSpacing: 0.8,
+    color: Colors.inkSecondary,
+    letterSpacing: Typography.trackingNormal,
   },
   segmentTabTextSelected: {
-    color: '#1E1E24',
+    color: Colors.surface,
     fontWeight: '800',
   },
   counterRow: {
@@ -503,41 +506,45 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   stepButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: '#EAEAE6',
+    width: 42,
+    height: 42,
+    borderRadius: Radii.md,
+    backgroundColor: Colors.surfaceWarm,
+    borderWidth: 1,
+    borderColor: Colors.border,
     alignItems: 'center',
     justifyContent: 'center',
   },
   stepButtonText: {
     fontSize: 22,
-    fontWeight: '800',
-    color: '#1E1E24',
+    fontWeight: '700',
+    color: Colors.inkPrimary,
     lineHeight: 24,
   },
   counterBox: {
-    minWidth: 60,
+    minWidth: 64,
     paddingVertical: 8,
     paddingHorizontal: 16,
-    backgroundColor: '#F7F7F4',
-    borderRadius: 10,
+    backgroundColor: Colors.surfaceWarm,
+    borderRadius: Radii.md,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#E2E2DC',
+    borderColor: Colors.border,
   },
   counterText: {
     fontSize: 18,
-    fontWeight: '900',
-    color: '#1E1E24',
+    fontWeight: '800',
+    color: Colors.inkPrimary,
   },
   keyValueText: {
-    fontSize: 14,
-    fontFamily: 'monospace',
-    color: '#1E1E24',
-    backgroundColor: '#F7F7F4',
-    padding: 10,
-    borderRadius: 8,
+    fontSize: 13,
+    fontFamily: Typography.mono,
+    color: Colors.inkPrimary,
+    backgroundColor: Colors.surfaceWarm,
+    padding: 12,
+    borderRadius: Radii.md,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
   },
   keyEditRow: {
     flexDirection: 'row',
@@ -545,54 +552,61 @@ const styles = StyleSheet.create({
   },
   keyInput: {
     flex: 1,
-    backgroundColor: '#F7F7F4',
-    borderWidth: 1.5,
-    borderColor: '#E06D53',
-    borderRadius: 10,
+    backgroundColor: Colors.surfaceWarm,
+    borderWidth: 1,
+    borderColor: Colors.goldBorder,
+    borderRadius: Radii.md,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    fontSize: 14,
-    fontFamily: 'monospace',
+    fontSize: 13,
+    fontFamily: Typography.mono,
+    color: Colors.inkPrimary,
   },
   saveKeyButton: {
-    backgroundColor: '#1E1E24',
+    backgroundColor: Colors.inkPrimary,
     paddingHorizontal: 18,
-    borderRadius: 10,
+    borderRadius: Radii.md,
+    borderWidth: 1,
+    borderColor: Colors.goldBorder,
     alignItems: 'center',
     justifyContent: 'center',
   },
   saveKeyButtonText: {
-    color: '#FFFFFF',
+    color: Colors.surface,
     fontSize: 11,
     fontWeight: '800',
+    letterSpacing: Typography.trackingNormal,
   },
   testPrintArea: {
-    marginTop: 20,
+    marginTop: 22,
     alignItems: 'center',
   },
   testPrintButton: {
-    backgroundColor: '#E06D53',
+    backgroundColor: Colors.inkPrimary,
+    borderWidth: 1,
+    borderColor: Colors.goldBorder,
     paddingVertical: 14,
     paddingHorizontal: 24,
-    borderRadius: 12,
+    borderRadius: Radii.pill,
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
   },
   testPrintButtonDisabled: {
-    backgroundColor: '#999999',
+    backgroundColor: Colors.inkLight,
+    borderColor: Colors.border,
   },
   testPrintButtonText: {
-    color: '#FFFFFF',
+    color: Colors.surface,
     fontSize: 12,
     fontWeight: '800',
-    letterSpacing: 1,
+    letterSpacing: Typography.trackingWide,
   },
   testProgressText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#1E1E24',
+    color: Colors.goldDark,
     marginTop: 8,
   },
   switchRow: {
@@ -608,49 +622,52 @@ const styles = StyleSheet.create({
   switchTitle: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#1E1E24',
+    color: Colors.inkPrimary,
   },
   switchSubtitle: {
     fontSize: 12,
-    color: '#777780',
+    color: Colors.inkSecondary,
     marginTop: 2,
   },
   divider: {
     height: 1,
-    backgroundColor: '#F0F0EC',
-    marginVertical: 6,
+    backgroundColor: Colors.borderLight,
+    marginVertical: 8,
   },
   pinSection: {
     paddingTop: 8,
   },
   changePinButton: {
-    marginTop: 10,
-    backgroundColor: '#EAEAE6',
-    paddingVertical: 10,
-    borderRadius: 10,
+    marginTop: 12,
+    backgroundColor: Colors.surfaceWarm,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    paddingVertical: 12,
+    borderRadius: Radii.pill,
     alignItems: 'center',
   },
   changePinButtonText: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#1E1E24',
-    letterSpacing: 0.8,
+    color: Colors.inkPrimary,
+    letterSpacing: Typography.trackingWide,
   },
   pinChangeBox: {
     marginTop: 12,
     gap: 10,
   },
   pinInput: {
-    backgroundColor: '#F7F7F4',
+    backgroundColor: Colors.surfaceWarm,
     borderWidth: 1.5,
-    borderColor: '#1E1E24',
-    borderRadius: 10,
+    borderColor: Colors.goldBorder,
+    borderRadius: Radii.md,
     paddingHorizontal: 16,
     paddingVertical: 10,
     fontSize: 18,
     fontWeight: '800',
     letterSpacing: 8,
     textAlign: 'center',
+    color: Colors.inkPrimary,
   },
   pinActionRow: {
     flexDirection: 'row',
@@ -658,41 +675,49 @@ const styles = StyleSheet.create({
   },
   pinSaveButton: {
     flex: 1,
-    backgroundColor: '#1E1E24',
-    paddingVertical: 10,
-    borderRadius: 10,
+    backgroundColor: Colors.inkPrimary,
+    borderWidth: 1,
+    borderColor: Colors.goldBorder,
+    paddingVertical: 12,
+    borderRadius: Radii.pill,
     alignItems: 'center',
   },
   pinSaveButtonText: {
-    color: '#FFFFFF',
+    color: Colors.surface,
     fontSize: 11,
     fontWeight: '800',
+    letterSpacing: Typography.trackingNormal,
   },
   pinCancelButton: {
     flex: 1,
-    backgroundColor: '#EAEAE6',
-    paddingVertical: 10,
-    borderRadius: 10,
+    backgroundColor: Colors.surfaceWarm,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    paddingVertical: 12,
+    borderRadius: Radii.pill,
     alignItems: 'center',
   },
   pinCancelButtonText: {
-    color: '#1E1E24',
+    color: Colors.inkPrimary,
     fontSize: 11,
     fontWeight: '800',
+    letterSpacing: Typography.trackingNormal,
   },
   specRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 6,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.borderLight,
   },
   specLabel: {
     fontSize: 12,
-    color: '#777780',
+    color: Colors.inkSecondary,
   },
   specValue: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#1E1E24',
+    color: Colors.inkPrimary,
   },
   buttonPressed: {
     transform: [{ scale: 0.98 }],

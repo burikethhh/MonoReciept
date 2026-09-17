@@ -13,24 +13,24 @@ export interface FrameTemplate {
 export const FRAME_TEMPLATES: Record<string, FrameTemplate> = {
   event01: {
     id: 'event01',
-    name: 'Classic Receipt',
-    subtitle: 'Timeless mono print with receipt header & barcode',
+    name: 'Classic Atelier',
+    subtitle: 'Timeless Didone typography with formal receipt header & barcode',
     width: 384,
     height: 576,
     aspectRatio: 384 / 576, // 2:3
-    headerText: 'MONORECIEPT ★ OFFICIAL',
-    footerText: 'THANK YOU FOR VISITING',
+    headerText: 'MONORECEIPT • ATELIER EDITION',
+    footerText: 'MEMORIES PRESERVED IN INK',
     barcode: true,
   },
   event02: {
     id: 'event02',
-    name: 'Party Memories',
-    subtitle: 'Celebration edition with star ornaments & timestamp',
+    name: 'Botanical Gala',
+    subtitle: 'Formal gala edition with fine-line floral ornaments & date stamp',
     width: 384,
     height: 576,
     aspectRatio: 384 / 576, // 2:3
-    headerText: '★ PARTY PHOTOBOOTH ★',
-    footerText: 'MEMORIES LAST FOREVER',
+    headerText: '✦ BOTANICAL GALA ✦',
+    footerText: 'MONORECEIPT • SPECIAL COMMEMORATIVE',
     barcode: false,
   },
 };

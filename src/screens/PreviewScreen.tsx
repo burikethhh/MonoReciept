@@ -20,9 +20,10 @@ import {
 import { FRAME_TEMPLATES, getFrameTemplate } from '../assets/frames/frameTemplates';
 import { TouchSlider } from '../components/TouchSlider';
 import { PrintSheet } from '../components/PrintSheet';
+import { Colors, Typography, Radii, Shadows } from '../theme/theme';
 
 export function PreviewScreen() {
-  const { photoUri, frameId, brightness, contrast, set, reset } = useBoothStore();
+  const { photoUri, frameId, brightness, contrast, set } = useBoothStore();
 
   const [photo, setPhoto] = useState<RgbaImage | null>(null);
   const [isLoadingPhoto, setIsLoadingPhoto] = useState(true);
@@ -110,10 +111,11 @@ export function PreviewScreen() {
       >
         {/* Screen Header */}
         <View style={styles.header}>
-          <Text style={styles.headerBadge}>THERMAL RECEIPT PREVIEW</Text>
-          <Text style={styles.headerTitle}>Review Your Print</Text>
+          <Text style={styles.headerBadge}>MONOCHROME PRINT PREVIEW</Text>
+          <Text style={styles.headerTitle}>Review Your Portrait</Text>
+          <View style={styles.goldDivider} />
           <Text style={styles.headerSubtitle}>
-            1-bit Floyd-Steinberg dither simulated for MXW01 thermal paper
+            1-bit Floyd-Steinberg error diffusion simulated for MXW01 thermal roll
           </Text>
         </View>
 
@@ -151,8 +153,8 @@ export function PreviewScreen() {
 
             {isLoadingPhoto ? (
               <View style={styles.loadingContainer}>
-                <ActivityIndicator size="large" color="#1E1E24" />
-                <Text style={styles.loadingText}>Rendering Dither...</Text>
+                <ActivityIndicator size="large" color={Colors.inkPrimary} />
+                <Text style={styles.loadingText}>RENDERING DITHER...</Text>
               </View>
             ) : (
               <Image
@@ -170,7 +172,7 @@ export function PreviewScreen() {
         {/* Adjustment Sliders Card */}
         <View style={styles.adjustmentsCard}>
           <View style={styles.adjustmentsHeader}>
-            <Text style={styles.cardTitle}>Print Tone Adjustments</Text>
+            <Text style={styles.cardTitle}>PRINT TONE ADJUSTMENTS</Text>
             {(brightness !== 0 || contrast !== 0) && (
               <Pressable onPress={handleResetAdjustments}>
                 <Text style={styles.resetButtonText}>RESET</Text>
@@ -205,14 +207,15 @@ export function PreviewScreen() {
             style={styles.retakeButton}
             onPress={handleRetake}
           >
-            <Text style={styles.retakeButtonText}>← RETAKE PHOTO</Text>
+            <Text style={styles.retakeButtonText}>← RETAKE</Text>
           </Pressable>
 
           <Pressable
             style={styles.printButton}
             onPress={() => setShowPrintSheet(true)}
           >
-            <Text style={styles.printButtonText}>PRINT MEMORY ➔</Text>
+            <Text style={styles.printButtonText}>PRINT RECEIPT</Text>
+            <Text style={styles.printChevron}>›</Text>
           </Pressable>
         </View>
       </ScrollView>
@@ -227,7 +230,10 @@ export function PreviewScreen() {
         <View style={styles.modalOverlay}>
           <View style={styles.modalCard}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Print Settings</Text>
+              <View>
+                <Text style={styles.modalBadge}>DISPATCH TO MXW01</Text>
+                <Text style={styles.modalTitle}>Print Configuration</Text>
+              </View>
               <Pressable
                 style={styles.modalCloseButton}
                 onPress={() => setShowPrintSheet(false)}
@@ -247,7 +253,7 @@ export function PreviewScreen() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#FFF7F0',
+    backgroundColor: Colors.bgKiosk,
   },
   scrollContent: {
     paddingHorizontal: 20,
@@ -257,59 +263,70 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 18,
   },
   headerBadge: {
-    fontSize: 10,
-    fontWeight: '800',
-    color: '#E06D53',
-    letterSpacing: 2,
+    fontSize: 9,
+    fontFamily: Typography.sansMedium,
+    color: Colors.goldDark,
+    letterSpacing: Typography.trackingExtraWide,
     marginBottom: 4,
   },
   headerTitle: {
-    fontSize: 28,
-    fontWeight: '900',
-    color: '#1E1E24',
-    letterSpacing: -0.5,
+    fontSize: 26,
+    fontFamily: Typography.serif,
+    fontWeight: '700',
+    color: Colors.inkPrimary,
+  },
+  goldDivider: {
+    width: 36,
+    height: 1.5,
+    backgroundColor: Colors.gold,
+    marginVertical: 8,
   },
   headerSubtitle: {
     fontSize: 12,
-    color: '#666670',
-    marginTop: 4,
+    color: Colors.inkSecondary,
     textAlign: 'center',
+    fontFamily: Typography.serif,
+    fontStyle: 'italic',
   },
   frameSwitcher: {
     flexDirection: 'row',
-    backgroundColor: '#EAEAE6',
-    borderRadius: 14,
+    backgroundColor: Colors.surfaceWarm,
+    borderRadius: Radii.pill,
     padding: 4,
     marginBottom: 20,
     width: '100%',
     maxWidth: 420,
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
   frameTab: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: 9,
     alignItems: 'center',
-    borderRadius: 10,
+    borderRadius: Radii.pill,
   },
   frameTabSelected: {
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#000000',
+    backgroundColor: Colors.surface,
+    borderWidth: 1,
+    borderColor: Colors.goldBorder,
+    shadowColor: Colors.inkPrimary,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
     elevation: 2,
   },
   frameTabText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: '#77777E',
-    letterSpacing: 1,
+    fontSize: 10,
+    fontFamily: Typography.sansMedium,
+    color: Colors.inkSecondary,
+    letterSpacing: Typography.trackingWide,
   },
   frameTabTextSelected: {
-    color: '#1E1E24',
-    fontWeight: '800',
+    color: Colors.inkPrimary,
+    fontWeight: '700',
   },
   receiptContainer: {
     width: '100%',
@@ -319,29 +336,25 @@ const styles = StyleSheet.create({
   },
   receiptPaper: {
     width: '100%',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: '#E2E2DC',
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
-    elevation: 6,
+    backgroundColor: Colors.paperBg,
+    borderRadius: Radii.sm,
+    borderWidth: 1,
+    borderColor: Colors.paperBorder,
+    ...Shadows.cardFloating,
     overflow: 'hidden',
   },
   receiptEdgeTop: {
     height: 6,
-    backgroundColor: '#EAEAE4',
+    backgroundColor: Colors.borderLight,
   },
   receiptEdgeBottom: {
-    height: 8,
-    backgroundColor: '#EAEAE4',
+    height: 6,
+    backgroundColor: Colors.borderLight,
   },
   receiptImage: {
     width: '100%',
     aspectRatio: 384 / 576,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.paperBg,
   },
   loadingContainer: {
     width: '100%',
@@ -349,28 +362,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 12,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.paperBg,
   },
   loadingText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: '#666670',
-    letterSpacing: 0.5,
+    fontSize: 10,
+    fontFamily: Typography.sansMedium,
+    color: Colors.inkSecondary,
+    letterSpacing: 1.5,
   },
   adjustmentsCard: {
     width: '100%',
     maxWidth: 420,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
+    backgroundColor: Colors.surface,
+    borderRadius: Radii.lg,
     padding: 20,
-    borderWidth: 1.5,
-    borderColor: 'rgba(0,0,0,0.06)',
+    borderWidth: 1,
+    borderColor: Colors.border,
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
-    elevation: 2,
+    ...Shadows.card,
   },
   adjustmentsHeader: {
     flexDirection: 'row',
@@ -379,15 +388,15 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   cardTitle: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: '#1E1E24',
-    letterSpacing: 0.5,
+    fontSize: 10,
+    fontFamily: Typography.sansMedium,
+    color: Colors.inkSecondary,
+    letterSpacing: Typography.trackingWide,
   },
   resetButtonText: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: '#E06D53',
+    fontSize: 10,
+    fontFamily: Typography.sansMedium,
+    color: Colors.goldDark,
     letterSpacing: 1,
   },
   actionsContainer: {
@@ -398,74 +407,92 @@ const styles = StyleSheet.create({
   },
   retakeButton: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 2,
-    borderColor: '#1E1E24',
-    paddingVertical: 16,
-    borderRadius: 14,
+    backgroundColor: Colors.surface,
+    borderWidth: 1,
+    borderColor: Colors.inkPrimary,
+    paddingVertical: 14,
+    borderRadius: Radii.pill,
     alignItems: 'center',
     justifyContent: 'center',
   },
   retakeButtonText: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: '#1E1E24',
-    letterSpacing: 1,
+    fontSize: 11,
+    fontFamily: Typography.sansMedium,
+    color: Colors.inkPrimary,
+    letterSpacing: Typography.trackingWide,
   },
   printButton: {
-    flex: 1.3,
-    backgroundColor: '#1E1E24',
-    paddingVertical: 16,
-    borderRadius: 14,
+    flex: 1.4,
+    backgroundColor: Colors.inkPrimary,
+    paddingVertical: 14,
+    borderRadius: Radii.pill,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000000',
+    gap: 8,
+    shadowColor: Colors.inkPrimary,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.18,
+    shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 4,
   },
   printButtonText: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: '#FFFFFF',
-    letterSpacing: 1,
+    fontSize: 11,
+    fontFamily: Typography.sansMedium,
+    color: Colors.surface,
+    letterSpacing: Typography.trackingWide,
+  },
+  printChevron: {
+    fontSize: 14,
+    color: Colors.gold,
+    fontWeight: '600',
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: Colors.overlayDark,
     justifyContent: 'flex-end',
   },
   modalCard: {
-    backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    backgroundColor: Colors.surface,
+    borderTopLeftRadius: Radii.xl,
+    borderTopRightRadius: Radii.xl,
     padding: 24,
     paddingBottom: 40,
-    maxHeight: '80%',
+    maxHeight: '85%',
+    ...Shadows.sheet,
   },
   modalHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 16,
+  },
+  modalBadge: {
+    fontSize: 9,
+    fontFamily: Typography.sansMedium,
+    color: Colors.goldDark,
+    letterSpacing: Typography.trackingExtraWide,
+    marginBottom: 2,
   },
   modalTitle: {
     fontSize: 20,
-    fontWeight: '800',
-    color: '#1E1E24',
+    fontFamily: Typography.serif,
+    fontWeight: '700',
+    color: Colors.inkPrimary,
   },
   modalCloseButton: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#F0F0EE',
+    backgroundColor: Colors.surfaceWarm,
+    borderWidth: 1,
+    borderColor: Colors.border,
     alignItems: 'center',
     justifyContent: 'center',
   },
   modalCloseText: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '700',
-    color: '#666670',
+    color: Colors.inkSecondary,
   },
 });

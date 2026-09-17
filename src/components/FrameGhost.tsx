@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { getFrameTemplate } from '../assets/frames/frameTemplates';
+import { Colors, Typography } from '../theme/theme';
 
 interface FrameGhostProps {
   frameId: string;
@@ -53,7 +54,7 @@ export function FrameGhost({ frameId }: FrameGhostProps) {
               <Text style={styles.barcodeText}>* MONO - {template.id.toUpperCase()} *</Text>
             </View>
           ) : (
-            <Text style={styles.ornamentText}>✦ ✦ ✦</Text>
+            <Text style={styles.ornamentText}>✦  LILY ATELIER  ✦</Text>
           )}
         </View>
       </View>
@@ -61,52 +62,53 @@ export function FrameGhost({ frameId }: FrameGhostProps) {
   );
 }
 
-const CORNER_SIZE = 16;
-const CORNER_BORDER = 2.5;
+const CORNER_SIZE = 18;
+const CORNER_BORDER = 2;
 
 const styles = StyleSheet.create({
   overlayContainer: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.45)', // Dims outside the print frame
+    backgroundColor: 'rgba(18, 18, 18, 0.45)', // Dims outside the print frame
   },
   frameBox: {
     width: '85%',
     maxHeight: '88%',
-    borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.85)',
+    borderWidth: 1.5,
+    borderColor: 'rgba(197, 168, 128, 0.65)', // Elegant champagne border
     borderRadius: 8,
     backgroundColor: 'transparent',
     overflow: 'hidden',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: 12,
   },
   headerArea: {
     alignItems: 'center',
     paddingVertical: 6,
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    backgroundColor: 'rgba(18, 18, 18, 0.35)',
     borderRadius: 4,
   },
   headerText: {
     color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 1.5,
+    fontSize: 11,
+    fontFamily: Typography.serif,
+    fontWeight: '700',
+    letterSpacing: 2,
     textTransform: 'uppercase',
   },
   dashLine: {
-    width: '90%',
+    width: '85%',
     height: 1,
     borderWidth: 0.5,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: 'rgba(197, 168, 128, 0.4)',
     borderStyle: 'dashed',
     marginVertical: 4,
   },
   dateText: {
-    color: 'rgba(255, 255, 255, 0.85)',
+    color: Colors.goldLight,
     fontSize: 9,
-    fontWeight: '600',
+    fontFamily: Typography.mono,
     letterSpacing: 1,
   },
   photoViewport: {
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: CORNER_SIZE,
     height: CORNER_SIZE,
-    borderColor: '#FFFFFF',
+    borderColor: Colors.gold,
   },
   cornerTL: {
     top: 4,
@@ -147,14 +149,14 @@ const styles = StyleSheet.create({
   footerArea: {
     alignItems: 'center',
     paddingVertical: 6,
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    backgroundColor: 'rgba(18, 18, 18, 0.35)',
     borderRadius: 4,
   },
   footerText: {
     color: '#FFFFFF',
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 1.2,
+    fontSize: 9,
+    fontFamily: Typography.sansMedium,
+    letterSpacing: 1.5,
     marginVertical: 2,
   },
   barcodeBox: {
@@ -162,22 +164,23 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   barcodeLines: {
-    width: 90,
-    height: 14,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    width: 84,
+    height: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
     borderRadius: 2,
   },
   barcodeText: {
-    color: 'rgba(255, 255, 255, 0.8)',
-    fontSize: 8,
+    color: Colors.goldLight,
+    fontSize: 7,
+    fontFamily: Typography.mono,
     letterSpacing: 1,
     marginTop: 2,
-    fontWeight: '600',
   },
   ornamentText: {
-    color: '#FFFFFF',
-    fontSize: 10,
-    letterSpacing: 4,
+    color: Colors.gold,
+    fontSize: 8,
+    fontFamily: Typography.sansMedium,
+    letterSpacing: 2,
     marginTop: 2,
   },
 });

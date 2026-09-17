@@ -8,6 +8,8 @@ import {
   GestureResponderEvent,
 } from 'react-native';
 
+import { Colors, Typography, Radii } from '../theme/theme';
+
 interface TouchSliderProps {
   label: string;
   value: number; // e.g. -50 to 50
@@ -81,7 +83,7 @@ export function TouchSlider({
           style={({ pressed }) => [styles.stepButton, pressed && styles.stepButtonPressed]}
           onPress={handleStepDown}
         >
-          <Text style={styles.stepButtonText}>-</Text>
+          <Text style={styles.stepButtonText}>−</Text>
         </Pressable>
 
         {/* Interactive Track */}
@@ -96,7 +98,7 @@ export function TouchSlider({
             {/* Center zero mark */}
             <View style={styles.centerMark} />
 
-            {/* Active Fill from center or from left */}
+            {/* Active Fill */}
             <View
               style={[
                 styles.trackFill,
@@ -143,85 +145,92 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   label: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: '#1E1E24',
-    letterSpacing: 1.2,
+    fontSize: 10,
+    fontFamily: Typography.sansMedium,
+    color: Colors.inkPrimary,
+    letterSpacing: Typography.trackingWide,
   },
   badge: {
-    backgroundColor: '#1E1E24',
+    backgroundColor: Colors.goldLight,
     paddingVertical: 2,
     paddingHorizontal: 8,
-    borderRadius: 8,
+    borderRadius: Radii.pill,
+    borderWidth: 1,
+    borderColor: Colors.goldBorder,
   },
   badgeText: {
-    color: '#FFFFFF',
-    fontSize: 11,
-    fontWeight: '800',
+    color: Colors.goldDark,
+    fontSize: 10,
+    fontFamily: Typography.mono,
+    fontWeight: '700',
   },
   sliderRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
   stepButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#E8E8E4',
+    width: 34,
+    height: 34,
+    borderRadius: Radii.pill,
+    backgroundColor: Colors.surfaceWarm,
+    borderWidth: 1,
+    borderColor: Colors.border,
     alignItems: 'center',
     justifyContent: 'center',
   },
   stepButtonPressed: {
-    backgroundColor: '#D0D0CC',
-    transform: [{ scale: 0.95 }],
+    backgroundColor: Colors.border,
+    transform: [{ scale: 0.96 }],
   },
   stepButtonText: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: '#1E1E24',
-    lineHeight: 22,
+    fontSize: 16,
+    fontWeight: '600',
+    color: Colors.inkPrimary,
+    lineHeight: 18,
   },
   trackContainer: {
     flex: 1,
-    height: 36,
+    height: 34,
     justifyContent: 'center',
     position: 'relative',
   },
   trackBackground: {
-    height: 8,
-    backgroundColor: '#E5E5E0',
-    borderRadius: 4,
+    height: 6,
+    backgroundColor: Colors.surfaceWarm,
+    borderRadius: 3,
     overflow: 'hidden',
     position: 'relative',
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
   centerMark: {
     position: 'absolute',
     left: '50%',
     top: 0,
     bottom: 0,
-    width: 2,
-    backgroundColor: '#B5B5B0',
+    width: 1.5,
+    backgroundColor: Colors.border,
     zIndex: 1,
   },
   trackFill: {
     height: '100%',
-    backgroundColor: '#E06D53', // Warm terracotta / coral accent
-    borderRadius: 4,
+    backgroundColor: Colors.gold,
+    borderRadius: 3,
   },
   thumb: {
     position: 'absolute',
-    top: 6,
+    top: 5,
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: '#1E1E24',
-    borderWidth: 2.5,
-    borderColor: '#FFFFFF',
-    shadowColor: '#000',
+    backgroundColor: Colors.inkPrimary,
+    borderWidth: 2,
+    borderColor: Colors.gold,
+    shadowColor: Colors.inkPrimary,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 4,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
 });

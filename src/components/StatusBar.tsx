@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { useBoothStore } from '../store/useBoothStore';
 import { printerService } from '../services/PrinterService';
 import { BlePairModal } from './BlePairModal';
+import { Colors, Typography, Radii } from '../theme/theme';
 
 export function StatusBar() {
   const {
@@ -21,18 +22,18 @@ export function StatusBar() {
 
   const getStatusText = () => {
     if (printerConnected) {
-      return `Connected: ${printerDeviceName}`;
+      return `MXW01: ${printerDeviceName || 'Connected'}`;
     }
     if (isBleScanning) {
-      return 'Scanning for Printer...';
+      return 'SEARCHING FOR PRINTER...';
     }
-    return 'Disconnected: Tap to Pair';
+    return 'PRINTER DISCONNECTED — TAP TO PAIR';
   };
 
   const getDotColor = () => {
-    if (printerConnected) return '#22C55E'; // Green
-    if (isBleScanning) return '#3B82F6'; // Blue
-    return '#F59E0B'; // Amber
+    if (printerConnected) return Colors.statusConnected;
+    if (isBleScanning) return Colors.gold;
+    return Colors.statusDisconnected;
   };
 
   return (
@@ -51,7 +52,7 @@ export function StatusBar() {
                   styles.batteryFill,
                   {
                     width: `${Math.max(10, Math.min(100, printerBattery))}%`,
-                    backgroundColor: printerBattery < 20 ? '#EF4444' : '#22C55E',
+                    backgroundColor: printerBattery < 20 ? Colors.statusDisconnected : Colors.statusConnected,
                   },
                 ]}
               />
@@ -73,47 +74,51 @@ const styles = StyleSheet.create({
   bar: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 9,
     paddingHorizontal: 16,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 999,
+    backgroundColor: Colors.surface,
+    borderRadius: Radii.pill,
     marginHorizontal: 16,
     marginVertical: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 6,
+    shadowColor: Colors.inkPrimary,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
     elevation: 3,
     borderWidth: 1,
-    borderColor: '#ECECE8',
+    borderColor: Colors.border,
   },
   dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
     marginRight: 10,
   },
   text: {
-    fontWeight: '700',
-    fontSize: 13,
-    color: '#1E1E24',
+    fontFamily: Typography.sansMedium,
+    fontSize: 11,
+    letterSpacing: Typography.trackingTight,
+    color: Colors.inkPrimary,
     flex: 1,
+    textTransform: 'uppercase',
   },
   batteryContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: '#F7F7F4',
-    paddingVertical: 4,
+    backgroundColor: Colors.surfaceWarm,
+    paddingVertical: 3,
     paddingHorizontal: 8,
-    borderRadius: 12,
+    borderRadius: Radii.pill,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
   },
   batteryIcon: {
-    width: 20,
-    height: 10,
+    width: 18,
+    height: 9,
     borderRadius: 2,
-    borderWidth: 1.5,
-    borderColor: '#1E1E24',
+    borderWidth: 1.2,
+    borderColor: Colors.inkSecondary,
     padding: 1,
     justifyContent: 'center',
   },
@@ -122,8 +127,10 @@ const styles = StyleSheet.create({
     borderRadius: 1,
   },
   batt: {
-    fontWeight: '800',
-    fontSize: 11,
-    color: '#1E1E24',
+    fontFamily: Typography.mono,
+    fontWeight: '700',
+    fontSize: 10,
+    color: Colors.inkPrimary,
   },
 });
+
