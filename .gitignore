@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Android build & caches
+android/build/
+android/app/build/
+android/.gradle/
+android/local.properties
+.gradle/
+build/
+*.log
+
+# iOS build
+ios/build/
+ios/Pods/
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
