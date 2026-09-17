@@ -11,6 +11,7 @@ android/local.properties
 .gradle/
 build/
 *.log
+*.apk
 
 # iOS build
 ios/build/
