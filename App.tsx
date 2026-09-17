@@ -7,6 +7,7 @@ import { CaptureScreen } from './src/screens/CaptureScreen';
 import { PreviewScreen } from './src/screens/PreviewScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
 import { useBoothStore } from './src/store/useBoothStore';
+import { Colors } from './src/theme/theme';
 
 export default function App() {
   const { phase, keepAwakeEnabled } = useBoothStore();
@@ -32,7 +33,7 @@ export default function App() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#FFF7F0',
+    backgroundColor: Colors.bgKiosk,
   },
   content: {
     flex: 1,
